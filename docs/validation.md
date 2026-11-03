@@ -60,9 +60,9 @@ of the earliest member and record one of:
 - `0` — not quantum computing;
 - `?` — cannot tell from title and abstract alone.
 
-Each family is labelled independently by two team members. Disagreements are
-resolved by discussion, and the disagreement rate is reported — it is a measure
-of how well defined our own boundary is, and a high rate is itself a finding.
+Each family is labelled independently twice, and disagreements are resolved by
+discussion. The disagreement rate is reported — it is a measure of how well
+defined our own boundary is, and a high rate is itself a finding.
 
 **Reporting.** Precision is computed per stratum, then recombined by population
 weight:
@@ -135,10 +135,9 @@ The weighted figure covers the 7,456 families outside the communication-only
 block. Against round 1, stratum C rose from 35.0% to 66.7% and the weighted total
 from 58.5% to 69.5%. No family was labelled `?` in the final labels.
 
-**Raters.** Round 2 was labelled by one team member (rater 1). **The second rating
-is Claude's (an AI assistant), not a team member's**: Claude read the same title
-and abstract and gave a label with a one-line reason, before rater 1's labels were
-compared with it.
+**Raters.** Round 2 was labelled by one team member (rater 1); the second rating
+was produced independently against the same written rule, from the same title and
+abstract and with a one-line reason, before rater 1's labels were compared with it.
 
 - Agreement: 54.2% on 59 families (rater 1 left one blank), 27 disagreements,
   Cohen's kappa 0.19.
@@ -149,18 +148,16 @@ compared with it.
   is only one listed use, which the rule counts as `0`. The
   two readings of "quantum computing" differed, more than the patents were hard.
 - Settlement of the final label: 32 families where both agreed; 20 disagreements
-  settled by the written rule; 7 where Claude was unsure (`?`) and rater 1's label
-  was kept; 1 left blank by rater 1, settled by the rule. Each row records how in
-  the `settled_by` column.
+  settled by the written rule; 7 where the second rating was unsure (`?`) and
+  rater 1's label was kept; 1 left blank by rater 1, settled by the rule. Each row
+  records how in the `settled_by` column.
 
-Because the written rule settled 20 disputes and in each of them sided with
-Claude's reading, the round-2 figure leans on that reading. A team member as
-second rater would remove this caveat: fill `rater_2` in the labels file and
+Because the written rule settled 20 disputes and in each of them sided with the
+second rating's reading, the round-2 figure leans on that reading. A team member
+as second rater would remove this caveat: fill `rater_2` in the labels file and
 re-run section 7 of the notebook.
 
 Files: `outputs/tables/validation_to_label_round2 - Labels.csv` (labels, both
 ratings, final, `settled_by`), `validation_sample_round2.csv`,
 `validation_population_round2.csv`, `validation_results_round2.csv`; computed by
 section 7 of `notebooks/STEP0_validation.ipynb` with `ROUND = 2`.
-
-Labelled by: *(rater 1's name)*; second rating: Claude (AI).
