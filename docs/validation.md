@@ -2,6 +2,10 @@
 
 **Status: protocol agreed, sample not yet drawn.**
 
+> **Update, 30 October 2026.** Both rounds are labelled. Round 1 measured the
+> first definition (58.5%); the definition was tightened on its evidence, and
+> round 2 measured the result (69.5%). See *Results* and *Results — round 2* below.
+
 The project brief asks us to hand-label about 100 random families, or to find
 another defensible way of validating the query. This note sets out what we will
 do and why, so that the result can be reported as a measurement rather than an
@@ -98,3 +102,65 @@ Inter-rater disagreement rate: 23% (23 of 100 families; agreement 77%, Cohen's k
 Date of labelling:
 
 Labelled by: Amirtay Almarua, Thekkedath Prince
+
+## Results — round 2
+
+**30 October 2026.** Round 1 led to three changes to the definition, recorded in
+`config/sector.yaml`: `H10N60/12` dropped (stratum B was 5% precise), the keyword
+stem `quantum comput` dropped (27 of the 39 keyword-only false positives), and
+post-quantum phrases (`anti-quantum`, `post-quantum`, `quantum-resistant`, ...)
+excluded from the keyword branch. Round 2 measures the definition after those
+changes. Only stratum C changed, so only C was redrawn; A keeps its definition and
+its round-1 labels; B no longer exists.
+
+**Population** (patents of invention, earliest priority year 2000–2022, new definition):
+
+| Stratum | Families | Sample | Labels |
+|---|---:|---:|---|
+| A — core CPC (`G06N10`) | 6,293 | — | round 1, reused |
+| B — peripheral hardware | 0 | — | removed from the definition |
+| C — keyword-only | 1,163 | 60 | round 2 |
+| Communication only (scope, not sampled) | 4,855 | — | — |
+| **Sector, 2000–2022** | **12,311** | | |
+
+**Precision:**
+
+| Stratum | n | Precision | 95% CI |
+|---|---:|---:|---|
+| A — core CPC | 20 | 70.0% (14/20) | 48.1–85.5% |
+| C — keyword-only | 60 | 66.7% (40/60) | 54.1–77.3% |
+| **Weighted total** | 80 | **69.5%** | 52.4–86.5% |
+
+The weighted figure covers the 7,456 families outside the communication-only
+block. Against round 1, stratum C rose from 35.0% to 66.7% and the weighted total
+from 58.5% to 69.5%. No family was labelled `?` in the final labels.
+
+**Raters.** Round 2 was labelled by one team member (rater 1). **The second rating
+is Claude's (an AI assistant), not a team member's**: Claude read the same title
+and abstract and gave a label with a one-line reason, before rater 1's labels were
+compared with it.
+
+- Agreement: 54.2% on 59 families (rater 1 left one blank), 27 disagreements,
+  Cohen's kappa 0.19.
+- The disagreement was systematic. In 15 cases rater 1 labelled `0` a patent on
+  qubit hardware, quantum software or error correction, which the written rule
+  counts as `1`; in 5 cases rater 1 labelled `1` a quantum-inspired classical
+  algorithm, a quantum-cryptography patent, or a component where quantum computing
+  is only one listed use, which the rule counts as `0`. The
+  two readings of "quantum computing" differed, more than the patents were hard.
+- Settlement of the final label: 32 families where both agreed; 20 disagreements
+  settled by the written rule; 7 where Claude was unsure (`?`) and rater 1's label
+  was kept; 1 left blank by rater 1, settled by the rule. Each row records how in
+  the `settled_by` column.
+
+Because the written rule settled 20 disputes and in each of them sided with
+Claude's reading, the round-2 figure leans on that reading. A team member as
+second rater would remove this caveat: fill `rater_2` in the labels file and
+re-run section 7 of the notebook.
+
+Files: `outputs/tables/validation_to_label_round2 - Labels.csv` (labels, both
+ratings, final, `settled_by`), `validation_sample_round2.csv`,
+`validation_population_round2.csv`, `validation_results_round2.csv`; computed by
+section 7 of `notebooks/STEP0_validation.ipynb` with `ROUND = 2`.
+
+Labelled by: *(rater 1's name)*; second rating: Claude (AI).

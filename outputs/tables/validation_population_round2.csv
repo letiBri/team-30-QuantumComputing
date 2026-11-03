@@ -1,0 +1,6 @@
+stratum,description,families,sample,share_of_sector
+A,core G06N10,6293,0,0.5112
+B,hardware only,0,0,0.0
+C,keyword only,1163,60,0.0945
+comms_only,"communication only (scope, not sampled)",4855,0,0.3944
+sector,"sector, 2000-2022",12311,60,1.0

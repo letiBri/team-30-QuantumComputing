@@ -235,3 +235,34 @@ chose the simpler rule because the keyword branch already provides that path and
 a definition that can be stated in one sentence is easier to defend than one that
 cannot. If the validation sample shows the keyword branch is weak, this is the
 first thing to revisit.
+
+## 9. Resolved: the validation tightened the definition
+
+The hand-labelled validation (`docs/validation.md`) measured the definition of §8
+at 58.5% precision and traced the false positives to two sources. Three changes
+followed, each recorded in `config/sector.yaml` and guarded by a test:
+
+- **`H10N60/12` dropped.** Only 1 of 20 families entering through it alone was
+  quantum computing; the class covers superconducting electronics in general.
+- **The keyword stem `quantum comput` dropped.** It matched 27 of the 39
+  keyword-only false positives, patents naming quantum computing only as a
+  possible use. Most genuine families also carry a specific term (*qubit*,
+  *quantum circuit*, ...) and still enter.
+- **Post-quantum phrases exclude a keyword match** (`anti-quantum`,
+  `post-quantum`, `quantum-resistant`, ...): classical cryptography built to resist
+  quantum computers.
+
+This also settles the option left open at the end of §8: the keyword branch was
+tightened instead of re-admitting `B82Y10/00`. Against the "After" column of §8:
+
+| | §8 | After validation |
+|---|---:|---:|
+| **Union** | 23,492 | **20,709** |
+| Keyword-only | 3,468 (14.8%) | 2,123 (10.3%) |
+| CAGR 2000-2022 | 20.63% | **21.8%** |
+| CAGR 2010-2022 | 32.28% | **34.2%** |
+| Measured precision | 58.5% | **69.5%** |
+
+The removed families were growing more slowly than the field, so the growth rate
+rose slightly. Precision covers the sector outside the communication block, whose
+scope (§6) is still open.
