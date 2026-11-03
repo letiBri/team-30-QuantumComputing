@@ -4,7 +4,7 @@ The analysis as actually run on the EPO Technology Intelligence Platform.
 
 | Notebook | Covers | State |
 |---|---|---|
-| `STEP0_validation.ipynb` | PW Step 0 — draws the stratified hand-labelling sample of `docs/validation.md` (§1–§5) and computes precision from the labels (§7) | Written; not yet run on PROD |
+| `STEP0_validation.ipynb` | PW Step 0 — draws the stratified hand-labelling sample of `docs/validation.md` (§1–§5) and computes precision from the labels (§7) | Run on PROD for both rounds: 58.5% on the first definition, 69.5% after the changes (`ROUND = 2`) |
 | `STEP1_general_description.ipynb` | PW Step 1 — volume, growth, and the dating of the series | §1–§9 complete on PROD |
 
 These notebooks run on TIP and nowhere else: they import `epo.tipdata.patstat`,

@@ -71,8 +71,7 @@ CPC codes were chosen by reading the official scheme definitions rather than the
 class titles. The core is `G06N10`, titled *"Quantum computing, i.e. information
 processing based on quantum-mechanical phenomena"*, together with its five
 subgroups — models, physical realisations, algorithms, error correction and
-programming. To these we add one enabling-hardware class, `H10N60/12`
-(Josephson-effect devices), and two quantum-communication classes, `H04B10/70`
+programming. To these we add two quantum-communication classes, `H04B10/70`
 and `H04L9/0852`.
 
 One code was removed on evidence. `B82Y10/00` — *nanotechnology for information
@@ -83,6 +82,24 @@ of the year-2000 families, and a compound growth rate of exactly zero across the
 window. `docs/methodology.md` §8 sets out the evidence; `config/sector.yaml`
 records the exclusion.
 
+Three more changes followed from the hand-labelled validation
+(`docs/validation.md`), which measured the precision of each branch:
+
+- **`H10N60/12` (Josephson-effect devices) was dropped.** Of 20 families entering
+  only through it, 1 was quantum computing: the class covers superconducting
+  electronics in general. Superconducting-qubit families still enter through
+  `G06N10` or a qubit keyword.
+- **The keyword stem `quantum comput` was dropped.** It matched 27 of the 39
+  keyword-only false positives — patents that name quantum computing only as a
+  possible use. Genuine families almost always also carry a specific term
+  (*qubit*, *quantum circuit*, *quantum algorithm*, ...).
+- **Post-quantum phrases exclude a keyword match** (`anti-quantum`,
+  `post-quantum`, `quantum-resistant`, ...). They mark classical cryptography
+  built to resist quantum computers, which mentions quantum computing without
+  being about it. The exclusion applies to the keyword branch only.
+
+Together they raised the measured precision of the sector from 58.5% to 69.5%.
+
 Keywords are deliberately multi-word or technically specific. The bare term
 *quantum* is useless for this sector: quantum dot, quantum well and quantum
 efficiency are optoelectronics vocabulary and would flood the dataset with LED
@@ -92,26 +109,29 @@ needed to recognise it.
 
 ### What the two branches contribute
 
-Run on PROD over 2000–2022, at family level:
+Run on PROD at family level, on the current definition. These are branch counts
+over all priority years; restricted to patents of invention with an earliest
+priority year in 2000–2022, the sector holds 12,311 families.
 
 | Branch | Families | Share of union |
 |---|---:|---:|
-| CPC | 20,024 | 85.2% |
-| Keywords | 11,599 | 49.4% |
-| — also found by CPC | 8,131 | 34.6% |
-| — **keyword-only** | 3,468 | 14.8% |
-| **Union (the sector)** | **23,492** | 100% |
+| CPC | 18,586 | 89.7% |
+| Keywords | 8,206 | 39.6% |
+| — also found by CPC | 6,083 | 29.4% |
+| — **keyword-only** | 2,123 | 10.3% |
+| **Union (the sector)** | **20,709** | 100% |
 
-Two things follow. First, **70% of keyword hits are independently confirmed by a
+Two things follow. First, **74% of keyword hits are independently confirmed by a
 classification code**, which is the signature of a keyword list that is not
 over-reaching — a runaway list would produce a large branch mostly disjoint from
-CPC. Second, **3,468 families are visible only in text**: roughly one in seven.
+CPC. Second, **2,123 families are visible only in text**: roughly one in ten.
 Those are the families a classification-only study would miss, and they are also
-the part of the definition most in need of validation.
+the part of the definition the validation had to measure.
 
 Removing `B82Y10/00` cut the dataset from 50,239 families to 23,492, a little
 over half. That is the measure of how much of the original "sector" was a
-different technology.
+different technology. The three changes that followed the validation cut it
+further, to 20,709.
 
 ---
 
@@ -166,11 +186,13 @@ cut the dataset from 50,239 families to 23,492.
 
 | | 2000 | 2022 | Growth | CAGR 2000–2022 |
 |---|---:|---:|---:|---:|
-| Quantum computing (families) | 50 | 3,100 | ×62 | **20.6%** |
+| Quantum computing (families) | 38 | 2,928 | ×77 | **21.8%** |
 | All patenting (families) | 914,442 | 2,389,730 | ×2.6 | 4.46% |
 
-The sector compounds at **20.6% a year against 4.46% for patenting as a whole —
-4.6 times the rate** — and over 2010–2022 at 32.3% against 6.24%, **5.2 times**.
+The sector compounds at **21.8% a year against 4.46% for patenting as a whole —
+4.9 times the rate** — and over 2010–2022 at 34.2% against 6.24%, **5.5 times**.
+Removing the false positives the validation found raised the growth rate rather
+than lowering it: on the definition before validation it was 20.6% and 32.3%.
 The series is small and flat through the 2000s, turns up around 2013 and rises
 monotonically thereafter. Counted on `G06N10` alone the core runs from 15
 families in 2000 to 1,915 in 2022, a 128-fold increase at 24.7% a year.
@@ -200,7 +222,7 @@ indicator used in Step 3.
 
 | Step | Content | State |
 |---|---|---|
-| 0 | Sector definition, extraction, cleaning | Query built, counted and decomposed by block; **validation outstanding** |
+| 0 | Sector definition, extraction, cleaning | Query built, counted, decomposed by block and validated (precision 69.5%); applicant-name harmonisation and the literature recall check outstanding |
 | 1 | General description: volume, growth, technology mix, geography | Volume, growth, the block decomposition, technology mix and geography complete|
 | 2 | Competitive landscape: concentration, entrants, subfields, PEST | Not started |
 | 3 | Present score: influence, volume, success, globalization | Not started |
@@ -208,16 +230,21 @@ indicator used in Step 3.
 | 5 | Magic Quadrant | Not started |
 | 6 | Strategic analysis and recommendation | Not started |
 
-Two items are known gaps rather than work merely not yet reached.
+Two items qualify every number above.
 
-**The query is not yet validated.** Reading the CPC scheme to choose codes is
-construction, not validation: it justifies the codes but produces no evidence
-about what the resulting set actually contains. The protocol is in
-`docs/validation.md` — a stratified hand-labelled sample, drawn from the branches
-that can actually be wrong rather than uniformly from the union. This matters
-more after the correction than before it: the keyword-only stratum is now 14.8%
-of the dataset rather than 6.6%, so the branch carrying no independent
-confirmation now holds roughly one family in seven.
+**The query is validated, with a stated precision.** Reading the CPC scheme to
+choose codes is construction, not validation: it justifies the codes but produces
+no evidence about what the resulting set actually contains. `docs/validation.md`
+measures it on a stratified hand-labelled sample, drawn from the branches that can
+actually be wrong rather than uniformly from the union. The first round found 58.5%
+of the sector to be quantum computing; after the three changes it led to, the
+second round found **69.5%** (95% CI 52–87%), with the core class `G06N10` itself
+at 70%. These figures cover the sector outside the quantum-communication block,
+whose membership is the scope question below rather than a precision one.
+Volumes are therefore overstated by roughly three families in ten; growth rates
+need not be, provided the false positives grow at about the pace of the field. In
+round 2 the second rating was Claude's rather than a team member's, and the two
+ratings agreed only moderately (kappa 0.19); `docs/validation.md` reports both.
 
 **The scope boundary needs settling.** Including `H04B10/70` and `H04L9/0852`
 makes this a quantum *technologies* study rather than a quantum *computing* one.
