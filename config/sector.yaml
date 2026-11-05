@@ -157,6 +157,7 @@ time:
   last_complete_year: 2022
   family_time_column: "earliest_filing_year"   # family: earliest priority year
   appln_time_column: "appln_filing_year"       # application: its own filing year
+  split_year: 2015                             # beggining of rapid growth of the sector
 
 # ---------------------------------------------------------------- counting rules
 
@@ -174,3 +175,10 @@ patstat:
 
 output:
   directory: "outputs"
+
+# ---------------------------------------------------------------- additions
+# defines additional variables that can be changed before the execution of the pipeline 
+
+additions:
+    show_plots_and_tables: False
+    do_exploring: True

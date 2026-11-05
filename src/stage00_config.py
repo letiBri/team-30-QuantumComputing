@@ -45,6 +45,7 @@ class SectorConfig:
     last_complete_year: int
     family_time_column: str
     appln_time_column: str
+    split_year: int
 
     ipr_type: str
     ip5_offices: tuple[str, ...]
@@ -52,6 +53,9 @@ class SectorConfig:
     env: str
 
     output: str
+
+    show_plots_and_tables: bool
+    do_exploring: bool
 
     raw: dict = field(repr=False, default_factory=dict)
 
@@ -103,10 +107,13 @@ def load_config(path: Path | str = DEFAULT_CONFIG_PATH) -> SectorConfig:
         last_complete_year=int(time["last_complete_year"]),
         family_time_column=time["family_time_column"],
         appln_time_column=time["appln_time_column"],
+        split_year=int(time["split_year"]),
         ipr_type=counting["ipr_type"],
         ip5_offices=tuple(counting["ip5_offices"]),
         top_n=int(counting["top_n"]),
         env=raw["patstat"]["env"],
         raw=raw,
         output=str(raw["output"]['directory']),
+        show_plots_and_tables=bool(raw["additions"]["show_plots_and_tables"]),
+        do_exploring=bool(raw["additions"]["do_exploring"]),
     )
