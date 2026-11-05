@@ -78,15 +78,30 @@ def families_by_keywords(db, terms, exclusions=()):
     )
 
 
-def sector_family_ids(db, cfg):
-    """The sector: families matching the CPC codes OR the keywords.
-
+def sector_family_ids(db, cfg, cpc_prefixes=None, keywords=None, exclusions=None):
+    """Query of the docdb_family_ids that belong to the sector (CPC codes OR keywords).
+    Default values come from cfg, arguments optionally overwrite them.
     UNION removes duplicates, so a family caught by both branches counts once.
     """
-    by_cpc = families_by_cpc(db, cfg.cpc_prefixes)
-    if not cfg.keywords:
+    cpc_prefixes = cfg.cpc_prefixes if cpc_prefixes is None else cpc_prefixes
+    keywords     = cfg.keywords if keywords is None else keywords
+    exclusions   = cfg.keyword_exclusions if exclusions is None else exclusions
+
+    family_id = TLS201_APPLN.docdb_family_id.label("docdb_family_id")
+    by_cpc = (
+        db.query(family_id)
+        .join(TLS224_APPLN_CPC, TLS201_APPLN.appln_id == TLS224_APPLN_CPC.appln_id)
+        .filter(symbol_prefix_condition(TLS224_APPLN_CPC.cpc_class_symbol, cpc_prefixes))
+    )
+    if not keywords:
         return by_cpc.distinct()
-    return by_cpc.union(families_by_keywords(db, cfg.keywords, cfg.keyword_exclusions))
+    by_keywords = (
+        db.query(family_id)
+        .outerjoin(TLS202_APPLN_TITLE, TLS201_APPLN.appln_id == TLS202_APPLN_TITLE.appln_id)
+        .outerjoin(TLS203_APPLN_ABSTR, TLS201_APPLN.appln_id == TLS203_APPLN_ABSTR.appln_id)
+        .filter(keyword_condition(keywords, exclusions))
+    )
+    return by_cpc.union(by_keywords)
 
 
 # --------------------------------------------------------------------------- #
@@ -101,3 +116,24 @@ def count_families(patstat, db, query, label):
     ).loc[0, "n"]
     print(f"{label:<28} {n:>12,}")
     return int(n)
+
+
+def report_query_info(patstat, db, cfg):
+    """Print info about number of families extracted by cpc, keywords and the union.
+    """
+    print("-" * 42)
+    print(f"{cfg.sector_name} | env: {cfg.env} | {cfg.year_min}-{cfg.year_max}")
+    print("-" * 42)
+    
+    n_cpc = count_families(patstat, db, families_by_cpc(db, cfg.cpc_prefixes), "CPC branch")
+    n_kw = count_families(patstat, db, families_by_keywords(db, cfg.keywords, cfg.keyword_exclusions),
+                          "Keyword branch")
+    n_union = count_families(patstat, db, sector_family_ids(db, cfg), "UNION (the sector)")
+
+    keyword_only = n_union - n_cpc
+    overlap = n_kw - keyword_only
+
+    print("-" * 42)
+    print(f"{'keyword-only families':<28} {keyword_only:>12,}  ({keyword_only / n_union:.1%} of sector)")
+    print(f"{'confirmed by both':<28} {overlap:>12,}  ({overlap / n_kw:.1%} of keyword branch)")
+    print("-" * 42)

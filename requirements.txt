@@ -15,6 +15,10 @@ numpy>=1.24
 matplotlib>=3.7
 SQLAlchemy>=2.0
 PyYAML>=6.0
+geopandas==1.2.0
+pycountry==26.2.16
+rapidfuzz==3.14.6
+cleanco==2.3
 
 # Provided by the TIP platform — not installable from PyPI.
 # epo.tipdata.patstat

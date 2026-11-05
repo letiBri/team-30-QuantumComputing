@@ -13,8 +13,8 @@ writing modules for analysis we have not yet done.
 |---|---|---|
 | `stage00_config.py` | Reads `config/sector.yaml` and exposes it as a frozen object. Runs anywhere. | **Working / done** |
 | `stage01_extract.py` | Builds the sector query and reports the contribution of each branch. Runs on TIP. | **Working / done** |
-| `stage02_clean.py` | Prepares data obtained from query for the analysis. | **Working / done** |
-| `stage03_landscape.py` | Steps 1–2: volume, growth, technology mix, geography, concentration, entry. Main analysis. | **Working / done** |
+| `stage02_clean.py` | Prepares data obtained from query for the analysis. Harmonisation.| **Working / done** |
+| `stage03_landscape.py` | Steps 1–2: volume, growth, technology mix, geography, concentration, entry. Main analysis. Competitive landscape.| **Working / done** |
 
 ## What is planned
 
@@ -22,7 +22,6 @@ Following the structure set out in the project brief:
 
 | File | Will do |
 |---|---|
-| `stage02_clean.py` | Add harmonisation (still do to, Step 2) |
 | `stage04_present_score.py` | Step 3: influence, volume, success, globalization — the quadrant's vertical axis |
 | `stage05_future_score.py` | Step 4: our own forward-looking algorithm |
 | `stage06_quadrant.py` | Steps 3–5 figures, including the Magic Quadrant |
@@ -48,6 +47,8 @@ not a query that might resolve differently on a different PATSTAT edition.
 
 ## Changes done
 - file names were changed from e.g. `02_clean.py` to `stage02_clean.py` to allow importing modules into main.py, as Python does not accept module names starting with numbers in regular import statements
+- exploring (Landscape analysis etc.) is now optional to define in the configurtion file
+- to avoid multiimporting `cfg` variable is now an argument in every function requiring any global varaible defined in configuration file
 
 
 ## Info
@@ -56,3 +57,4 @@ not a query that might resolve differently on a different PATSTAT edition.
 - to visualise (not only save) plots and tables uncomment appropriate code lines in `stage03_landscape.py`
 - `cached` function was not used in `stage03_landscape.py` for steps §8 and §9, however the running time is still short (if needed can be added later)
 - `ALT_BASE_YEAR` is defined manually
+- some functions differs between notebooks and `src` files, however as notebooks are for exploring, the final versions of functions are the ones in `src` folder and `main.py`
