@@ -158,6 +158,6 @@ as second rater would remove this caveat: fill `rater_2` in the labels file and
 re-run section 7 of the notebook.
 
 Files: `outputs/tables/validation_to_label_round2 - Labels.csv` (labels, both
-ratings, final, `settled_by`), `validation_sample_round2.csv`,
+ratings, final, `settled_by`, stratum),
 `validation_population_round2.csv`, `validation_results_round2.csv`; computed by
 section 7 of `notebooks/STEP0_validation.ipynb` with `ROUND = 2`.
