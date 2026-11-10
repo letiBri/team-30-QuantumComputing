@@ -2,7 +2,7 @@
 
 **Guiding question.** The patent analysis raises one question: *why did quantum computing patenting take off after 2015, and why is it led by the United States and China?* Each factor below gives part of the answer and ends with what it means for Dell.
 
-**What the patent data shows.** Patent families in the sector grew by 34% a year between 2010 and 2022, against 6% for patenting as a whole. The number of active applicants rose from 189 in 2015 to 1,098 in 2022.
+**What the patent data shows.** Patent families in the sector grew by 34% a year between 2010 and 2022, against 6% for patenting as a whole. The number of active applicants rose from 189 in 2015 to 1,102 in 2022.
 
 ## Political
 

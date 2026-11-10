@@ -15,7 +15,7 @@ While PATSTAT's standardized name column (`psn_name`) provides a foundational no
 
 ---
 
-## 2. Harmonization Strategies Evaluated
+## 2. Harmonisation Strategies Evaluated
 
 The cleaning pipeline builds upon progressive methodologies, evaluated both independently and in combination:
 
@@ -27,7 +27,7 @@ The cleaning pipeline builds upon progressive methodologies, evaluated both inde
 
 ---
 
-## 3. The Adopted Solution: Tailored Sector Pipeline
+## 3. Our harmonisation
 
 To overcome these limitations, the adopted pipeline relies on a custom tuning layer (`my_harmonisation`) combining:
 1. **Preliminary Normalization:** Uppercasing, accent removal, special character stripping, and whitespace regularization.
@@ -48,14 +48,14 @@ Once names are harmonized, the pipeline determines each applicant's key metadata
 
 ---
 
-## 5. Statistical Validation & Audit Results
+## 5. Statistical Validation
 
 To quantitatively measure the harmonization pipeline's performance before deploying it across the entire dataset, we conducted a statistical audit using random sampling and text similarity matching. The evaluation focuses on two core metrics:
 
 1. **Precision (Over-merging Check):** We extract a random sample of 50 merged entity groups to manually verify if the algorithm incorrectly grouped completely different organizations under the same name (False Positives).
 2. **Missed Merges (Under-merging Check):** We extract 50 pairs of *unmerged* entities that share a high text similarity score (≥ 0.6) to manually verify if they are actually the same organization that the algorithm failed to link (False Negatives).
 
-### Initial Audit Results
+### 5.1 Initial Audit Results
 
 Based on our first comprehensive audit, the automated Entity Linking algorithm performed as follows:
 
@@ -64,11 +64,33 @@ Based on our first comprehensive audit, the automated Entity Linking algorithm p
 | **Precision** | **98.0%** | [89.5% – 99.6%] | **49 out of 50** merged groups truly refer to the same organization. The algorithm is highly reliable at avoiding false groupings. |
 | **Missed Merges** | **46.0%** | [33.0% – 59.6%] | **23 out of 50** highly similar applicant pairs were actually the same organization but left unmerged. |
 
-### Iterative Improvement
+#### Iterative Improvement
 Entity harmonization is inherently an iterative process. A high Precision (98%) ensures that our market data is not corrupted by merging unrelated companies, which is the most critical factor for a reliable landscape analysis. While the Missed Merges rate highlights that some subsidiaries or spelling variants still escape the automated logic, these results establish a validated baseline. 
 
 The pipeline's performance can be continuously improved by reviewing new missed merge samples and manually adding specific entities to the `ORG_ALIASES` dictionary, incrementally reducing the false negative rate without altering the core algorithm.
 
+
+### 5.2 Gold Standard Evaluation
+
+To complement the targeted auditing of edge cases, we validated the pipeline over a **Gold Standard**, which contains applicant names as they appear in PATSTAT grouped by hand.
+
+The algorithm's predictions were evaluated using:
+
+* **Precision (**$P$**):** The proportion of correctly merged pairs among all pairs merged by the pipeline.
+* **Recall (**$R$**):** The proportion of true entity matches present in the ground truth that were successfully captured.
+* $F_1$**-Score:** The harmonic mean of Precision and Recall, summarizing overall pipeline accuracy.
+
+
+#### Results
+
+| Metric | Score |
+| ----- | ----- |
+| **Precision** | **98.0%** | 
+| **Recall** | **83.3%** | 
+| $F_1$**-Score** | **0.900** | 
+
+The high Precision confirms we didn't "merge too much": the model accurately avoided erroneously grouping independent companies together (low False Positives).
+The Recall shows we didn't "merge too little": we successfully linked most subsidiaries and spelling variants to their correct main brands (low False Negatives).
 
 
 
