@@ -42,7 +42,7 @@ Our evidence is patent data. Firms file patents years before products reach the 
 │   ├── validation.md         Step 0 validation protocol and its results
 │   ├── appropriability.md    Step 1 Section 10 appropriability and secrecy analysis
 │   ├── harmonisation.md      Step 2 applicant name harmonisation rules
-│   └── present_score.md      Step 3 present score: indicators, weights, method, robustness
+│   └── present_score.md      Step 3 present score (incumbents and entrants): indicators, weights, method, robustness
 ├── tests/
 ├── main.py                   Main pipeline, refactored out of the notebooks
 ├── requirements.txt
@@ -133,7 +133,7 @@ The sector compounds at **21.8% a year against 4.5% for patenting as a whole —
 | 0 | Sector definition, extraction, cleaning, validation | **Complete** (`STEP0_validation.ipynb`, `docs/validation.md`) |
 | 1 | General description: volume, growth, technology mix, geography, appropriability | **Complete** (`STEP1_general_description.ipynb`, `docs/appropriability.md`) |
 | 2 | Competitive landscape: harmonisation, concentration, entrants, subfields | In progress (`STEP2_competitive_landscape.ipynb`, `docs/harmonisation.md`) |
-| 3 | Present score: influence, volume, success, globalization | **Complete** (`STEP3_present_score.ipynb`, `docs/present_score.md`) |
+| 3 | Present score: influence, volume, success, globalization | **Complete** for incumbents and entrants (`STEP3_present_score_incumbent.ipynb`, `STEP3_present_score_entrant.ipynb`, `docs/present_score.md`) |
 | 4 | Future score: our own algorithm | Not started |
 | 5 | Magic Quadrant | Not started |
 | 6 | Strategic analysis and recommendation | Not started |
