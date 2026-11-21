@@ -1,0 +1,34 @@
+{
+  "population": "entrants: first family in the sector in 2015 or later",
+  "env": "PROD",
+  "window": [
+    2010,
+    2018
+  ],
+  "n_firms": 11,
+  "min_families": 10,
+  "excluded": [
+    "BANK AMERICA",
+    "ELECTRONIC SCIENCE RESEARCH INSTITUTE CHINA"
+  ],
+  "indicators": {
+    "volume": "share of the sector's families in the window",
+    "influence": "forward citations within 5 years / mean of the same priority year",
+    "success": "granted / national applications (no WO, no kind T), all offices",
+    "globalization": "mean distinct offices per family (no WO, no kind T)"
+  },
+  "weights": {
+    "influence": 0.35,
+    "globalization": 0.25,
+    "volume": 0.2,
+    "success": 0.2
+  },
+  "method": "rrf",
+  "rrf_c": 11,
+  "rrf_c_joint": 21,
+  "robustness": {
+    "random_weight_draws": 2000,
+    "bootstrap_resamples": 1000,
+    "seed": 30
+  }
+}

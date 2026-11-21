@@ -1,0 +1,28 @@
+{
+  "env": "PROD",
+  "window": [
+    2010,
+    2018
+  ],
+  "n_firms": 10,
+  "min_families": 10,
+  "indicators": {
+    "volume": "share of the sector's families in the window",
+    "influence": "forward citations within 5 years / mean of the same priority year",
+    "success": "granted / national applications (no WO, no kind T), all offices",
+    "globalization": "mean distinct offices per family (no WO, no kind T)"
+  },
+  "weights": {
+    "influence": 0.35,
+    "globalization": 0.25,
+    "volume": 0.2,
+    "success": 0.2
+  },
+  "method": "rrf",
+  "rrf_c": 10,
+  "robustness": {
+    "random_weight_draws": 2000,
+    "bootstrap_resamples": 1000,
+    "seed": 30
+  }
+}
